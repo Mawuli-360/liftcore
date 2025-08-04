@@ -6,6 +6,7 @@ typedef OnboardingStep = ({
   String description,
 });
 
+
 typedef InsightProgressData = ({
   AssetImage image,
   String title,

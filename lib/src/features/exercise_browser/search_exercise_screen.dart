@@ -10,9 +10,18 @@ import 'package:liftcore/src/shared/widgets/app_button.dart';
 import 'package:liftcore/src/shared/widgets/app_form_field.dart';
 import 'package:liftcore/src/shared/widgets/app_header.dart';
 import 'package:liftcore/src/shared/widgets/app_text.dart';
+import 'package:smooth_corner/smooth_corner.dart';
 
 class SearchExerciseScreen extends StatelessWidget {
-  const SearchExerciseScreen({super.key});
+  SearchExerciseScreen({super.key});
+
+  final List<String> popularWorkouts = [
+    "Cardio",
+    "Yoga",
+    "Functional Training",
+    "CrossFit",
+    "Full-Body Workouts"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,32 +35,96 @@ class SearchExerciseScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          AppFormField(
-              fillColor: Colors.transparent,
-              hint: "Search something...",
-              style: TextStyle(color: AppColors.white, fontSize: 16),
-              prefixIcon: Icon(Iconsax.search_normal_14),
-              border: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.borderColor,
-                  width: 0.5,
+          SizedBox(
+            height: context.screenHeight * 0.06,
+            child: AppFormField(
+                fillColor: Colors.transparent,
+                hint: "Search something...",
+                style: TextStyle(color: AppColors.white, fontSize: 16),
+                prefixIcon: Icon(
+                  Iconsax.search_normal_14,
+                  color: Colors.white,
                 ),
-                borderRadius: BorderRadius.circular(30),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.borderColor,
+                    width: 0.5,
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.borderColor,
+                    width: 0.5,
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.borderColor,
+                    width: 0.5,
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                )),
+          ),
+          AppSpacing.gapH12,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AppText(
+                "Recent Search",
+                variant: AppTextVariant.headlineSmall,
+                fontWeight: FontWeight.w600,
               ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.borderColor,
-                  width: 0.5,
-                ),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.borderColor,
-                  width: 0.5,
-                ),
-                borderRadius: BorderRadius.circular(30),
-              )),
+            ],
+          ),
+
+          // not found animation
+          // Lottie.asset(AppAnimations.notFound, height: 200),
+
+          // when result is found
+
+          Container(
+            padding: const EdgeInsets.all(16),
+            margin: EdgeInsets.symmetric(vertical: 12),
+            decoration: ShapeDecoration(
+              shape: SmoothRectangleBorder(
+                  borderRadius: AppSpacing.roundedMd,
+                  side: BorderSide(color: AppColors.borderColor, width: 0.5)),
+            ),
+            child: Column(
+              children: List.generate(
+                  4,
+                  (index) => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Iconsax.refresh,
+                                  color: Colors.white54,
+                                  size: 20,
+                                ),
+                                AppSpacing.gapW8,
+                                AppText(
+                                  "No recent search found",
+                                  variant: AppTextVariant.bodyLarge,
+                                  color: Colors.white70,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Icon(
+                            Icons.close,
+                            size: 20,
+                            color: Colors.red,
+                          )
+                        ],
+                      )),
+            ),
+          ),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,12 +136,26 @@ class SearchExerciseScreen extends StatelessWidget {
               ),
             ],
           ),
+          AppSpacing.gapH12,
+
           Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List.generate(5, (index) {
-                return ChoiceChip(label: Text("data"), selected: true);
+              children: List.generate(popularWorkouts.length, (index) {
+                return Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                  decoration: ShapeDecoration(
+                    shape: StadiumBorder(
+                        side: BorderSide(
+                            width: 0.5, color: AppColors.borderColor)),
+                  ),
+                  child: AppText(
+                    popularWorkouts[index],
+                  ),
+                );
               })),
+          AppSpacing.gapH12,
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:liftcore/src/core/router/route_paths.dart';
 import 'package:liftcore/src/features/analytics/insight_screen.dart';
@@ -13,9 +12,11 @@ import 'package:liftcore/src/features/home/presentation/home_page/home_page.dart
 import 'package:liftcore/src/features/home/presentation/home_page/presentation/daily_task/daily_task_screen.dart';
 import 'package:liftcore/src/features/exercise_library/exercise_detail_screen.dart';
 import 'package:liftcore/src/features/home/presentation/home_page/presentation/daily_task/exercise_category_screen.dart';
+import 'package:liftcore/src/features/profile/edit_profile_screen.dart';
 import 'package:liftcore/src/features/profile/profile_screen.dart';
 import 'package:liftcore/src/features/exercise_browser/search_exercise_screen.dart';
 import 'package:liftcore/src/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:liftcore/src/features/subscription/subscription_screen.dart';
 import 'package:liftcore/src/shared/screens/error_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -101,7 +102,7 @@ final router = GoRouter(
         StatefulShellBranch(routes: [
           GoRoute(
             path: RoutePaths.searchExerciseScreen,
-            builder: (context, state) => const SearchExerciseScreen(),
+            builder: (context, state) => SearchExerciseScreen(),
           ),
         ]),
         StatefulShellBranch(routes: [
@@ -112,9 +113,20 @@ final router = GoRouter(
         ]),
         StatefulShellBranch(routes: [
           GoRoute(
-            path: RoutePaths.userProfileScreen,
-            builder: (context, state) => const ProfileScreen(),
-          ),
+              path: RoutePaths.userProfileScreen,
+              builder: (context, state) => ProfileScreen(),
+              routes: [
+                GoRoute(
+                  path: _extractPath(RoutePaths.editProfileScreen),
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => EditProfileScreen(),
+                ),
+                GoRoute(
+                  path: _extractPath(RoutePaths.subscriptionScreen),
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => SubscriptionScreen(),
+                )
+              ]),
         ])
       ],
     )

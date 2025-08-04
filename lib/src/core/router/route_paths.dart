@@ -8,6 +8,7 @@ class RoutePaths {
   static const String login = '/login';
   static const String register = '/register';
   static const String profile = '/profile';
+
   static const String completeRegistrationSteps = '/completeRegistrationSteps';
 
   /* -------------------------------------------------------------------- */
@@ -19,6 +20,10 @@ class RoutePaths {
   static const String searchExerciseScreen = '/search-exercise-screen';
   static const String insightScreen = '/insight-screen';
   static const String userProfileScreen = '/user-profile-screen';
+  static const String editProfileScreen =
+      '/user-profile-screen/editProfileScreen';
+  static const String subscriptionScreen =
+      '/user-profile-screen/subscription-screen';
   static const String dailyTaskScreen = '/homescreen/daily-task-screen';
   static const String exerciseDetailScreen = '/exercise-detail-screen';
   static const String exerciseScreen =
